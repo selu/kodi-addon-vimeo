@@ -211,6 +211,7 @@ class Api:
                         "user": item["user"]["name"],
                         "userThumb": self._get_picture(item["user"]["pictures"], 3),
                         "onDemand": purchase_required,
+                        "hasSubtitle": item["metadata"]["connections"]["texttracks"]["total"] > 0,
                         "live": is_live,
                     }
                     collection.items.append(video)

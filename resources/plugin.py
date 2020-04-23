@@ -89,6 +89,12 @@ def run():
         if media_url:
             resolved_url = api.resolve_media_url(media_url)
             item = xbmcgui.ListItem(path=resolved_url)
+            # TODO Fetch subtitle, convert to srt and add to item
+            # TODO Test video: https://api.vimeo.com/videos/140786188
+            #                  https://api.vimeo.com/videos/140786188/texttracks
+            # subtitle_url = api.resolve_texttrack_url()
+            # item.addStreamInfo("subtitle", {"language": "en"})
+            # item.setSubtitles([subtitle_url])
             xbmcplugin.setResolvedUrl(handle, succeeded=True, listitem=item)
         elif video_id:
             collection = listItems.from_collection(api.resolve_id(video_id))

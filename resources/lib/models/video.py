@@ -37,6 +37,7 @@ class Video(ListItem):
             "year": self.info.get("date")[:4],
         })
         list_item.setProperty("isPlayable", "true")
+        list_item.setProperty("hasSubtitle", "true" if self.info.get("hasSubtitle") else "false")
         list_item.setProperty("mediaUrl", self.uri)
 
         url = addon_base + "/play/?" + urllib.parse.urlencode({"uri": self.uri})
