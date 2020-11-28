@@ -119,6 +119,14 @@ msgctxt "#30104"
 msgid "Categories"
 msgstr ""
 
+msgctxt "#30105"
+msgid "Likes"
+msgstr ""
+
+msgctxt "#30106"
+msgid "Purchases"
+msgstr ""
+
 msgctxt "#30108"
 msgid "Settings"
 msgstr ""

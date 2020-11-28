@@ -130,6 +130,20 @@ class Api:
         res = self._do_api_request("/videos", params)
         return self._map_json_to_collection(res)
 
+    def likes(self):
+        params = self._get_default_params()
+        params["direction"] = "desc"
+        params["sort"] = "date"
+        res = self._do_api_request("/me/likes", params)
+        return self._map_json_to_collection(res)
+
+    def purchases(self):
+        params = self._get_default_params()
+        params["direction"] = "desc"
+        params["sort"] = "purchase_time"
+        res = self._do_api_request("/me/ondemand/purchases", params)
+        return self._map_json_to_collection(res)
+
     def resolve_media_url(self, uri):
         # If we have a on-demand URL, we need to fetch the trailer and return the uri
         if uri.startswith("/ondemand/"):
