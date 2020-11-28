@@ -17,3 +17,10 @@ class AuthenticationMixinBase(object):
         resp = self.post(path, auth=self.app_info, jsonify=False, data=data)
 
         return resp.status_code, resp.headers, resp.json()
+
+    def logout(self):
+        """Log out for authenticated users"""
+
+        resp = self.delete('tokens')
+
+        return resp.status_code
