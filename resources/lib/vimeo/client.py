@@ -9,10 +9,11 @@ import requests
 from .auth.client_credentials import ClientCredentialsMixin
 from .auth.authorization_code import AuthorizationCodeMixin
 from .auth.device_code import DeviceCodeMixin
+from .auth.client_token import ClientTokenMixin
 from .exceptions import APIRateLimitExceededFailure
 
 
-class VimeoClient(ClientCredentialsMixin, DeviceCodeMixin, AuthorizationCodeMixin):
+class VimeoClient(ClientCredentialsMixin, DeviceCodeMixin, ClientTokenMixin, AuthorizationCodeMixin):
     """Client handle for the Vimeo API."""
 
     API_ROOT = "https://api.vimeo.com"
