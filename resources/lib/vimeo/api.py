@@ -43,6 +43,7 @@ class Api:
         self.lang = lang
         self.vfs = vfs
         self.cache = cache
+        self._logged_in = None
 
         self.api_limit = int(self.settings.get("search.items.size"))
         self.api_sort = self.settings.SORT.get(self.settings.get("search.sort"), {})
@@ -98,6 +99,16 @@ class Api:
             return search_template
 
         return "{}"
+
+    def logged_in(self):
+        if self._logged_in == None:
+            self._logged_in = self.api_client.verify_token()
+        return self._logged_in['logged_in']
+
+    def user_name(self):
+        if self._logged_in == None:
+            self._logged_in = self.api_client.verify_token()
+        return self._logged_in.get('user_name')
 
     def call(self, url):
         params = self._get_default_params()

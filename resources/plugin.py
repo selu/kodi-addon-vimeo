@@ -43,7 +43,7 @@ def run():
     if path == PATH_ROOT:
         action = args.get("action", None)
         if action is None:
-            items = listItems.root()
+            items = listItems.root(api.logged_in(), api.user_name())
             xbmcplugin.addDirectoryItems(handle, items, len(items))
             xbmcplugin.endOfDirectory(handle)
         elif "call" in action:
@@ -52,6 +52,7 @@ def run():
             xbmcplugin.endOfDirectory(handle)
         elif "settings" in action:
             addon.openSettings()
+            xbmc.executebuiltin("Container.Refresh")
         else:
             xbmc.log("Invalid root action", xbmc.LOGERROR)
 

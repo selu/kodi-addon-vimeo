@@ -14,7 +14,7 @@ class Items:
         self.addon_base = addon_base
         self.search_history = search_history
 
-    def root(self):
+    def root(self, logged_in, user_name):
         items = []
 
         # Search
@@ -37,25 +37,33 @@ class Items:
         url = self.addon_base + PATH_CATEGORIES
         items.append((url, list_item, True))
 
-        # Likes
-        list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30105))
-        url = self.addon_base + PATH_LIKES
-        items.append((url, list_item, True))
+        if logged_in:
+            # Likes
+            list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30105))
+            url = self.addon_base + PATH_LIKES
+            items.append((url, list_item, True))
 
-        # Purchases
-        list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30106))
-        url = self.addon_base + PATH_PURCHASES
-        items.append((url, list_item, True))
+            # Purchases
+            list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30106))
+            url = self.addon_base + PATH_PURCHASES
+            items.append((url, list_item, True))
 
         # Settings
         list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30108))
         url = self.addon_base + "/?action=settings"
         items.append((url, list_item, False))
 
-        # Sign in TODO
-        # list_item = xbmcgui.ListItem(label=addon.getLocalizedString(30109))
-        # url = addon_base + "/action=signin"
-        # items.append((url, list_item, False))
+        if not logged_in:
+            # Sign in TODO
+            list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30109))
+            url = self.addon_base + "/action=signin"
+            items.append((url, list_item, False))
+
+        if logged_in:
+            # Sign out TODO
+            list_item = xbmcgui.ListItem(label="Sign out ["+user_name+"]")
+            url = self.addon_base + "/action=signout"
+            items.append((url, list_item, False))
 
         return items
 
