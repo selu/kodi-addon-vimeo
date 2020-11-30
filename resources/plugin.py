@@ -177,19 +177,20 @@ def login(handle):
     progress = xbmcgui.DialogProgress()
     progress.create(
         "Sign In",
-        "Go to '%s'[CR]and enter the following code: %s" % (
-            code['activate_link'],
+        "Go to '[B]%s[/B]'[CR]and enter the following code: [B]%s[/B]" % (
+            code['activate_link'].lstrip('https://'),
             code['user_code']
         )
     )
     total = code['expires_in'] / code['interval']
     for i in range(total):
         progress.update(int(100.0*i/total))
-        if progress.iscanceled():
-            progress.close()
-            return
+        for j in range(code['interval']):
+            if progress.iscanceled():
+                progress.close()
+                return
+            xbmc.sleep(1000)
 
-        xbmc.sleep(1000*code['interval'])
         try:
             token = api.api_client_device.device_authorization(
                 code['authorize_link'],
