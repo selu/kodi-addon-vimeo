@@ -56,13 +56,13 @@ class Items:
         if not logged_in:
             # Sign in TODO
             list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30109))
-            url = self.addon_base + "/action=signin"
+            url = self.addon_base + "/?action=signin"
             items.append((url, list_item, False))
 
         if logged_in:
             # Sign out TODO
             list_item = xbmcgui.ListItem(label="Sign out ["+user_name+"]")
-            url = self.addon_base + "/action=signout"
+            url = self.addon_base + "/?action=signout"
             items.append((url, list_item, False))
 
         return items

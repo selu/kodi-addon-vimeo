@@ -92,6 +92,10 @@ class Api:
         return VimeoClient(token=self.api_access_token_default)
 
     @property
+    def api_client_device(self):
+        return VimeoClient(key=self.api_client_id, secret=self.api_client_secret)
+
+    @property
     def search_template(self):
         search_template = self.settings.get("search.template")
 

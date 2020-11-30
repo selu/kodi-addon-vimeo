@@ -5,7 +5,7 @@ from __future__ import absolute_import
 
 from .base import AuthenticationMixinBase
 from . import GrantFailed
-
+import xbmc
 
 class DeviceCodeMixin(AuthenticationMixinBase):
     """
@@ -30,6 +30,7 @@ class DeviceCodeMixin(AuthenticationMixinBase):
             params
         )
 
+        xbmc.log("device auth: %s" % resp, xbmc.LOGERROR)
         if not code == 200:
             raise GrantFailed()
 
@@ -48,9 +49,8 @@ class DeviceCodeMixin(AuthenticationMixinBase):
             params
         )
 
+        xbmc.log("device resp: %s" % resp, xbmc.LOGERROR)
         if not code == 200:
             raise GrantFailed()
 
-        self.token = resp['access_token']
-
-        return self.token
+        return resp['access_token']

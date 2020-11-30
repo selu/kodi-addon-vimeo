@@ -53,6 +53,10 @@ def run():
         elif "settings" in action:
             addon.openSettings()
             xbmc.executebuiltin("Container.Refresh")
+        elif "signin" in action:
+            login(handle)
+        elif "signout" in action:
+            logout(handle)
         else:
             xbmc.log("Invalid root action", xbmc.LOGERROR)
 
@@ -167,3 +171,41 @@ def search(handle, query):
     xbmcplugin.addDirectoryItems(handle, search_options, len(collection))
     xbmcplugin.addDirectoryItems(handle, collection, len(collection))
     xbmcplugin.endOfDirectory(handle)
+
+def login(handle):
+    code = api.api_client_device.initiate_device_authentication(['public','private'])
+    progress = xbmcgui.DialogProgress()
+    progress.create(
+        "Sign In",
+        "Go to '%s'[CR]and enter the following code: %s" % (
+            code['activate_link'],
+            code['user_code']
+        )
+    )
+    total = code['expires_in'] / code['interval']
+    for i in range(total):
+        progress.update(int(100.0*i/total))
+        if progress.iscanceled():
+            progress.close()
+            return
+
+        xbmc.sleep(1000*code['interval'])
+        try:
+            token = api.api_client_device.device_authorization(
+                code['authorize_link'],
+                code['device_code'],
+                code['user_code']
+            )
+            settings.set("api.accesstoken", token)
+            progress.close()
+            xbmc.executebuiltin("Container.Refresh")
+            return
+        except Exception as e:
+            xbmc.log("token exception: %s" % e, xbmc.LOGERROR)
+            pass
+    progress.close()
+
+def logout(handle):
+    api.api_client.delete_token()
+    settings.set("api.accesstoken", None)
+    xbmc.executebuiltin("Container.Refresh")
