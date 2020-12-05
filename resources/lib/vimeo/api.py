@@ -11,6 +11,7 @@ from .api_collection import ApiCollection
 from resources.lib.models.category import Category
 from resources.lib.models.channel import Channel
 from resources.lib.models.group import Group
+from resources.lib.models.series import Series
 from resources.lib.models.user import User
 from resources.lib.models.video import Video
 
@@ -215,6 +216,8 @@ class Api:
                 kind = item.get("type", None)
                 is_video = kind == "video"
                 is_live = kind == "live"
+                is_series = kind == "series"
+                is_film = kind == "film"
                 is_category = "/categories/" in item.get("uri", "")
                 is_channel = "/channels/" in item.get("uri", "")
                 is_group = "/groups/" in item.get("uri", "")
@@ -269,6 +272,17 @@ class Api:
                         "description": item.get("description", ""),
                     }
                     collection.items.append(group)
+
+                elif is_series:
+                    series = Series(id=item["resource_key"], label=item["name"])
+                    series.thumb = self._get_picture(item["pictures"], 3)
+                    series.uri = item["metadata"]["connections"]["videos"]["uri"]
+                    xbmc.log("Series keys: "+",".join(item.keys()), xbmc.LOGWARNING)
+                    series.info = {
+                        #"date": item["publish"]["time"],
+                        "description": item.get("description", ""),
+                    }
+                    collection.items.append(series)
 
                 elif is_user:
                     user = User(id=item["resource_key"], label=item["name"])
