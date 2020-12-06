@@ -153,6 +153,13 @@ class Api:
         res = self._do_api_request("/me/likes", params)
         return self._map_json_to_collection(res)
 
+    def watch_later(self):
+        params = self._get_default_params()
+        params["direction"] = "desc"
+        params["sort"] = "date"
+        res = self._do_api_request("/me/watchlater", params)
+        return self._map_json_to_collection(res)
+
     def purchases(self):
         params = self._get_default_params()
         params["direction"] = "desc"

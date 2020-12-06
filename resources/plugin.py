@@ -75,6 +75,11 @@ def run():
         xbmcplugin.addDirectoryItems(handle, collection, len(collection))
         xbmcplugin.endOfDirectory(handle)
 
+    elif path == PATH_WATCH_LATER:
+        collection = listItems.from_collection(api.watch_later())
+        xbmcplugin.addDirectoryItems(handle, collection, len(collection))
+        xbmcplugin.endOfDirectory(handle)
+
     elif path == PATH_TRENDING:
         collection = listItems.from_collection(api.trending())
         xbmcplugin.addDirectoryItems(handle, collection, len(collection))

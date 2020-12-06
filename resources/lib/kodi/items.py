@@ -43,6 +43,11 @@ class Items:
             url = self.addon_base + PATH_LIKES
             items.append((url, list_item, True))
 
+            # Watch Later
+            list_item = xbmcgui.ListItem(label="Watch Later")
+            url = self.addon_base + PATH_WATCH_LATER
+            items.append((url, list_item, True))
+
             # Purchases
             list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30106))
             url = self.addon_base + PATH_PURCHASES
