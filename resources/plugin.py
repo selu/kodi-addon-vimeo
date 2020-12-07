@@ -109,6 +109,11 @@ def run():
         if media_url:
             resolved_url = api.resolve_media_url(media_url)
             item = xbmcgui.ListItem(path=resolved_url)
+            subtitles, languages = api.get_subtitles(media_url)
+            if subtitles is not None:
+                for lang in languages:
+                    item.addStreamInfo("subtitle", {"language": lang})
+                item.setSubtitles(subtitles)
             xbmcplugin.setResolvedUrl(handle, succeeded=True, listitem=item)
         elif video_id:
             collection = listItems.from_collection(api.resolve_id(video_id))

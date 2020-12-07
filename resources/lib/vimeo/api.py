@@ -194,6 +194,18 @@ class Api:
         res = self._do_api_request("/videos/{video_id}".format(video_id=video_id), params)
         return self._map_json_to_collection(res)
 
+    def get_subtitles(self, uri):
+        res = self._do_api_request(uri+"/texttracks", {})
+        if res["total"] > 0:
+            subtitles = []
+            languages = []
+            for s in res["data"]:
+                subtitles.append(s["link"])
+                languages.append(s["language"])
+            return subtitles, languages
+        else:
+            return None, None
+
     def _do_api_request(self, path, params):
         if self._request_requires_fallback(path, params):
             return self.api_client_fallback.get(path, params=params).json()
