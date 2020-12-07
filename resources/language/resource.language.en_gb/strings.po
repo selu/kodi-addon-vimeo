@@ -124,6 +124,10 @@ msgid "Likes"
 msgstr ""
 
 msgctxt "#30106"
+msgid "Watch Later"
+msgstr ""
+
+msgctxt "#30107"
 msgid "Purchases"
 msgstr ""
 
@@ -133,6 +137,10 @@ msgstr ""
 
 msgctxt "#30109"
 msgid "Sign in"
+msgstr ""
+
+msgctxt "#30119"
+msgid "Sign out [%s]"
 msgstr ""
 
 # GUI - Search
@@ -185,6 +193,11 @@ msgstr ""
 # GUI - Settings
 msgctxt "#30501"
 msgid "Cache cleared"
+msgstr ""
+
+# Login message
+msgctxt "#30601"
+msgid "Go to '[B]%s[/B]'[CR]and enter the following code: [B]%s[/B]"
 msgstr ""
 
 # GUI - Generic

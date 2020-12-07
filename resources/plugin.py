@@ -189,8 +189,8 @@ def login(handle):
     code = api.api_client_device.initiate_device_authentication(['public','private'])
     progress = xbmcgui.DialogProgress()
     progress.create(
-        "Sign In",
-        "Go to '[B]%s[/B]'[CR]and enter the following code: [B]%s[/B]" % (
+        addon.getLocalizedString(30109),
+        addon.getLocalizedString(30601) % (
             code['activate_link'].lstrip('https://'),
             code['user_code']
         )

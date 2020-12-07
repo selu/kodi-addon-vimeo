@@ -44,12 +44,12 @@ class Items:
             items.append((url, list_item, True))
 
             # Watch Later
-            list_item = xbmcgui.ListItem(label="Watch Later")
+            list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30106))
             url = self.addon_base + PATH_WATCH_LATER
             items.append((url, list_item, True))
 
             # Purchases
-            list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30106))
+            list_item = xbmcgui.ListItem(label=self.addon.getLocalizedString(30107))
             url = self.addon_base + PATH_PURCHASES
             items.append((url, list_item, True))
 
@@ -66,7 +66,7 @@ class Items:
 
         if logged_in:
             # Sign out TODO
-            list_item = xbmcgui.ListItem(label="Sign out ["+user_name+"]")
+            list_item = xbmcgui.ListItem(label=(self.addon.getLocalizedString(30119) % user_name))
             url = self.addon_base + "/?action=signout"
             items.append((url, list_item, False))
 

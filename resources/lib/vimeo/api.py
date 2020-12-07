@@ -301,7 +301,6 @@ class Api:
                     series = Series(id=item["resource_key"], label=item["name"])
                     series.thumb = self._get_picture(item["pictures"], 3)
                     series.uri = item["metadata"]["connections"]["videos"]["uri"]
-                    xbmc.log("Series keys: "+",".join(item.keys()), xbmc.LOGWARNING)
                     series.info = {
                         #"date": item["publish"]["time"],
                         "description": item.get("description", ""),
