@@ -198,13 +198,18 @@ class Api:
         res = self._do_api_request(uri+"/texttracks", {})
         if res["total"] > 0:
             subtitles = []
-            languages = []
             for s in res["data"]:
-                subtitles.append(s["link"])
-                languages.append(s["language"])
-            return subtitles, languages
+                subtitles.append({
+                    "uri": s["link"],
+                    "lang": s["language"],
+                    "name": s["name"],
+                })
+            return subtitles
         else:
-            return None, None
+            return None
+
+    def get_subtitle_file(self, uri):
+        return self.api_client.get(uri).content
 
     def _do_api_request(self, path, params):
         if self._request_requires_fallback(path, params):
